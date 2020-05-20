@@ -1,4 +1,6 @@
 import React from 'react';
+// import axios from 'axios';
+// import cheerio from 'cheerio';
 
 class Find extends React.Component {
     constructor(props) {
@@ -22,8 +24,12 @@ class Find extends React.Component {
         console.log("Text: " + this.state.value.text);
         console.log("URL: " + this.state.value.url);
         event.preventDefault();
+
+        // var sampleURL = 'https://www.google.com/';
     }
+
     render() {
+        
         return(
             <>
             <h3>Search here to find out</h3>
@@ -37,7 +43,8 @@ class Find extends React.Component {
             </form>
             <button id="submit-btn" onSubmit={this.handleSubmit}>Find</button>
             </>
-        )
+
+)       
     }
 
 }
