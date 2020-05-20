@@ -27,6 +27,36 @@ app.use(express.static("public"));
 // Connect to the MongoDB
 mongoose.connect("mongodb://localhost/codingExercise", { useNewUrlParser: true });
 
+// Grab the body of the html with axios
+var word = 'customer';
+var counter = 0;
+var queryURL = 'https://circlein.com/frequently-asked-questions/';    
+
+
+axios.get(queryURL).then(function(response) {
+    
+    var $ = cheerio.load(response.data);
+    
+    $("p span").each(function(i, element) {
+
+        var obj = element.children;
+        // console.log("===START===", obj, "===END===")
+        
+        var newArray = [];
+
+        for (var i = 0; i < obj.length; i++) {
+
+            var foundWords = obj[i].data;
+            // console.log("===START===", obj[i].data, "===END===")
+
+            newArray.push(foundWords);
+            // console.log("===START===", newArray, "===END===");
+        }
+    })
+    }).catch(function(error) {
+        console.log("error", error);
+        });
+
 // Start the server
 app.listen(PORT, function() {
     console.log("App running on port " + PORT);
