@@ -6,15 +6,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        Find out how popular you are!
+        <h1>
+          Find out how popular you are!
+        </h1>
       </header>
       <div>
-        <Find>
-          <label>
-            Enter any word here: 
-            <input type="text"></input>
-          </label>
-        </Find>
+        <Find/>
       </div>
     </div>
   );
