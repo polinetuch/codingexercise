@@ -1,18 +1,11 @@
 // Require all dependencies to set up server
 var express = require('express');
 var logger = require('morgan');
-var mongoose = require('mongoose');
-
 var axios = require('axios');
 var cheerio = require('cheerio');
 
-// Set port number to 8080
 var PORT = 8080;
-
-// Initialize express
 var app = express();
-
-// Configure middleware
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -24,35 +17,47 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the MongoDB
-mongoose.connect("mongodb://localhost/codingExercise", { useNewUrlParser: true });
-
 // Grab the body of the html with axios
-var word = 'customer';
+var queryURL = 'http://www.mtv.com/news/celebrity/';
 var counter = 0;
-var queryURL = 'https://circlein.com/frequently-asked-questions/';    
+var findWord = "Justin";
 
-
+// Making a request via axios to the queryURL
 axios.get(queryURL).then(function(response) {
     
+    // Load HTML into cheerio ans save it to a variable
     var $ = cheerio.load(response.data);
-    
-    $("p span").each(function(i, element) {
 
-        var obj = element.children;
-        // console.log("===START===", obj, "===END===")
+    var scrapedDataArray = [];
+
+    $(".headline").each(function(i, element) {
         
-        var newArray = [];
+        // Save the formattedElementText of the element in a paragraph variable by finding the a and span tag and trim the value
+        var formattedElementText = $(element).find("a").find("span").text().replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
+        
+        scrapedDataArray.push({formattedElementText});
+    });
 
-        for (var i = 0; i < obj.length; i++) {
+    // Loop through scraped data array
+    for (var i = 0; i < scrapedDataArray.length; i++) {        
 
-            var foundWords = obj[i].data;
-            // console.log("===START===", obj[i].data, "===END===")
+        //Format jsonString to remove unncessary and ending characters
+        var jsonString = JSON.stringify(scrapedDataArray[i]).substr(25).slice(0, -2);
 
-            newArray.push(foundWords);
-            // console.log("===START===", newArray, "===END===");
+        // remove quotation marks
+        jsonString =  jsonString.replace(/['"]+/g, '' );
+        
+        var splitObj = jsonString.split(" ");
+        // console.log(splitObj);
+
+        for (var item in splitObj) {
+            if (splitObj[item] === findWord) {
+                counter++; 
+                console.log("Name Search: " + splitObj[item] + "\nTotal Found: " + counter);
+            }
         }
-    })
+    }
+
     }).catch(function(error) {
         console.log("error", error);
         });
@@ -60,4 +65,4 @@ axios.get(queryURL).then(function(response) {
 // Start the server
 app.listen(PORT, function() {
     console.log("App running on port " + PORT);
-})
+});
