@@ -1,20 +1,53 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <header class="header">
-      <h1>Social Scraper</h1>
-      <p>Find Out How Popular You Are</p>
+      <p>Social Scraper</p>
+      <p>Find Out How Popular You Are From MTV News</p>
     </header>
-    <h3>Website - http://www.mtv.com/news/celebrity/</h3>
-    <h4>Enter a word to search</h4>
-    <input class="user-input" type="text" placeholder="Your word here..." />
-    <button type="submit" onclick="submitSearch()">Search</button>
-
-    <h3>Your word appeared:</h3>
-    <p id=""></p>
-    <p id="total"></p>
+    <div class="container">
+      <div>
+        <h2>
+          Enter name here:
+          <input
+            class="user-input"
+            type="text"
+            placeholder="Your first name here"
+          />
+          <button
+            type="submit"
+            type="button"
+            class="btn"
+            onclick="submitSearch()"
+          >
+            Search
+          </button>
+        </h2>
+      </div>
+      <!-- <div class="card text-center">
+        <div class="card-body">
+          <h3 class="card-title" id="total"></h3>
+      </div>
+      </div> -->
+      <!-- <div class="row"> -->
+      <div class="card text-center">
+        <div class="card-header">
+          How many times have you been featured?
+        </div>
+        <div class="card-body">
+          <h5 class="card-title" id="total"></h5>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
 
     <script>
       async function submitSearch() {
@@ -27,7 +60,8 @@
           body: JSON.stringify({ word }),
         }); // post call to backend
         const json = await response.json(); // get the json from the response
-        document.getElementById("total").innerHTML = json.Total + " time.";
+        document.getElementById("total").innerHTML =
+          "You have appeared " + json.Total + " time.";
       }
     </script>
     <style></style>
