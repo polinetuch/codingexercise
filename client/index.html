@@ -1,33 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Scraping</title>
+    <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
   </head>
   <body>
-    <h1>Social Scraper</h1>
+    <header class="header">
+      <h1>Social Scraper</h1>
+      <p>Find Out How Popular You Are</p>
+    </header>
     <h3>Website - http://www.mtv.com/news/celebrity/</h3>
     <h4>Enter a word to search</h4>
     <input class="user-input" type="text" placeholder="Your word here..." />
     <button type="submit" onclick="submitSearch()">Search</button>
 
     <h3>Your word appeared:</h3>
+    <p id=""></p>
     <p id="total"></p>
 
     <script>
-      function submitSearch() {
+      async function submitSearch() {
         const word = document.querySelector(".user-input").value;
         const response = await fetch("http://localhost:3000/search", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ word })
-        });
-        const json = await response.join();
-        document.getElementById("total").innerHTML = json.Total + "times";
+          body: JSON.stringify({ word }),
+        }); // post call to backend
+        const json = await response.json(); // get the json from the response
+        document.getElementById("total").innerHTML = json.Total + " time.";
       }
     </script>
+    <style></style>
   </body>
 </html>
