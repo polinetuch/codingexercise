@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = 3000;
+var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var fs = require('fs')
 
@@ -28,6 +28,6 @@ app.post('/search', async (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-app.listen(port, function() {
-    console.log("App running on port http://localhost:" + port);
+app.listen(PORT, function() {
+    console.log("App running on port http://localhost:" + PORT);
 });
