@@ -13,6 +13,12 @@ app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+// Enable security rules for local development
+app.use(function(req, res, next) {
+    res.header("Allow-Control-Allow-Origin", "");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+})
 
 // Make public a static folder
 app.use(express.static("public"));
@@ -20,7 +26,21 @@ app.use(express.static("public"));
 // Grab the body of the html with axios
 var queryURL = 'http://www.mtv.com/news/celebrity/';
 var counter = 0;
-var findWord = "Justin";
+var findWord = "Demi";
+
+app.get('/getUserInput', function(req, res) {
+    var getNames = [
+        {
+            name: 'Justin'
+        }
+    ]
+    res.send(getNames);
+})
+
+app.post('/postUserInput', function(req, res) {
+    console.log(req.body);
+    res.send('success');
+})
 
 // Making a request via axios to the queryURL
 axios.get(queryURL).then(function(response) {
