@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs')
 var path = require('path');
 
-const scraper = require('./scraper');
+var scraper = require('./scraper');
 
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
