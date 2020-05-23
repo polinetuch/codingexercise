@@ -3,6 +3,7 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var fs = require('fs')
+var path = require('path');
 
 const scraper = require('./scraper');
 
@@ -12,6 +13,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
     fs.readFile( __dirname + "/" + "index.html", 'utf8', function (err, data) {
