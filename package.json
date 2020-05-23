@@ -1,6 +1,9 @@
 {
   "name": "codingexercise",
   "version": "1.0.0",
+  "engines": {
+    "node": "1.0.0x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
