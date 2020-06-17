@@ -1,31 +1,26 @@
 {
-  "name": "codingexercise",
+  "name": "social-scraper",
   "version": "1.0.0",
-  "engines": {
-    "node": "10.16.0"
-  },
-  "description": "",
+  "description": "### When you type in any name, you will be shown how many times the input has been shown on MTV news.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polinetuch/codingexercise.git"
+    "url": "git+https://github.com/polinetuch/social-scraper.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/polinetuch/codingexercise/issues"
+    "url": "https://github.com/polinetuch/social-scraper/issues"
   },
-  "homepage": "https://github.com/polinetuch/codingexercise#readme",
+  "homepage": "https://github.com/polinetuch/social-scraper#readme",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.15",
-    "morgan": "^1.10.0"
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   }
 }
