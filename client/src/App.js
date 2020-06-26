@@ -2,11 +2,40 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  state = {
-    data: [],
-    inputValue: ''
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [],
+      name: '',
+      counter: 0
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({ name: event.target.value})
   };
   
+  handleClick(event) {
+    event.preventDefault();
+    this.setState({ name: event.target.value});
+
+    let input = this.state.name;
+    let findName = this.state.data;
+    let counting = 0;
+    for(var i = 0; i < findName.length; i++) {
+      if (findName[i] === input) {
+        counting++;
+        var showResult =  findName[i] +  " has appeared " + counting;
+        return alert(showResult);
+      }
+    }
+  };
+
   componentDidMount() {
     this.getScrapedData(res => this.setState({ data: res.json}))
     .catch(err => console.log(err));
@@ -21,46 +50,29 @@ class App extends Component {
     .catch(error => {
       this.setState({ error: error})
     })
-  };
-
-  handleChange(e) {
-    this.setState({ 
-      [e.target.word]: e.target.value
-    })
-  };
-
-  onSubmit(e) {
-    e.preventDefault();
-
-  }
-
+};
+ 
   render() {
     return (
       <>
-      <h1>Find your name here</h1>
-      <form>
-        <lable>
-          Search Here: 
-          <input word="word"
-            type="text"
-            value={this.state.inputValue}
-            placeholder="Enter First Name Here"
-            onChange={e => this.handleChange(e)}
-          />
-        </lable>
-        <button onClick={(e) => this.onSubmit(e)}>Search</button>
-      </form>
-      {/* <div>
-        <h3>Random names and words</h3>
-        <div>{this.state.data.map(item =>
-          <p><strong>Word:</strong> {item}</p>
-        )}
-        </div>
-      </div> */}
+      <div className="container">
+        <header>Find your name here</header>
+      </div>
+      <div className="row">
+        <form>
+          Search here:
+            <input
+              type="text"
+              name="userInput"
+              placeholder="Enter First Name Here"
+              onChange={this.handleChange}
+            />
+            <button onClick={this.handleClick}>Search</button>
+        </form>
+      </div>      
       </>
     )
   }
 }
-
 
 export default App;
