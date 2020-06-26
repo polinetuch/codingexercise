@@ -30,8 +30,8 @@ class App extends Component {
     for(var i = 0; i < findName.length; i++) {
       if (findName[i] === input) {
         counting++;
-        var showResult =  findName[i] +  " has appeared " + counting;
-        return alert(showResult);
+        var showResult =  findName[i] +  " has appeared " + counting + " time";
+        return alert(showResult)
       }
     }
   };
@@ -51,25 +51,43 @@ class App extends Component {
       this.setState({ error: error})
     })
 };
- 
   render() {
+    const showData = this.state.data.map((data, index) => {
+      return (
+        <tr key={index}>
+          <td>{index}</td>
+          <td>{data}</td>
+        </tr>
+      )
+    });
+
     return (
       <>
-      <div className="container">
-        <header>Find your name here</header>
+      <div className="App">
+        <header className="App-header">Find your name here</header>
       </div>
-      <div className="row">
-        <form>
+      <div className="card-body">
+        <form className="form">
           Search here:
             <input
               type="text"
               name="userInput"
-              placeholder="Enter First Name Here"
+              className="input"
+              placeholder="Enter Here"
               onChange={this.handleChange}
             />
-            <button onClick={this.handleClick}>Search</button>
+            <button id="btn" onClick={this.handleClick}>Search</button>
         </form>
-      </div>      
+      </div>
+      <div>
+        <h3 id="title">Try these names/words: </h3>
+          <table id="dataTable">
+            <tbody>
+              {showData}
+            </tbody>
+          </table>
+    
+      </div>
       </>
     )
   }
